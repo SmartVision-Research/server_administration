@@ -19,7 +19,7 @@ Clone or copy the repository on your server, then run:
 
 ```bash
 sudo ./install.sh
-
+```
 
 This script will:
 
