@@ -20,6 +20,7 @@ Clone or copy the repository on your server, then run:
 ```bash
 sudo ./install.sh
 
+
 This script will:
 
 Verify that all admin scripts exist
@@ -32,11 +33,11 @@ After installation, you should see:
 
 Permissions updated for all scripts.
 
-🚀 Usage Guide
+##🚀 Usage Guide
 
 Below is the full workflow from creating users to deleting them.
 
-1️⃣ Create a New User
+###1️⃣ Create a New User
 
 Script: add_newuser.sh
 
@@ -46,6 +47,7 @@ Creates a new Linux user, assigns it to the researcher group, and generates a ra
 It also logs the credentials in user_passwords.txt.
 
 Usage
+
 sudo ./add_newuser.sh <username>
 
 Example
