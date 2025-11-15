@@ -35,7 +35,7 @@ echo ""
 echo "This will:"
 echo "  ❗ REMOVE the user account"
 echo "  ❗ DELETE the home directory /home/$USERNAME"
-echo "  ❗ KILL all running processes"
+echo "  ❗ FORCE KILL all running processes"
 echo "  ❗ DELETE all files owned by this user anywhere on the system"
 echo "  ❗ This operation CANNOT be undone"
 echo "============================================================"
@@ -56,13 +56,13 @@ echo ""
 echo "------------------------------------------------------" >> "$LOGFILE"
 echo "$(date '+%Y-%m-%d %H:%M:%S') - Removing user: $USERNAME" >> "$LOGFILE"
 
-# --- KILL RUNNING PROCESSES ---------------------------------------------------
-echo "🔍 Killing running processes for $USERNAME..."
-pkill -u "$USERNAME" 2>/dev/null || true
+# --- FORCE KILL RUNNING PROCESSES -------------------------------------------
+echo "🔍 Killing all running processes for $USERNAME..."
+pkill -9 -u "$USERNAME" 2>/dev/null || true
 
 # --- DELETE USER + HOME FOLDER ------------------------------------------------
 echo "🗑 Removing user and home directory..."
-userdel -r "$USERNAME"
+userdel -r "$USERNAME" || true
 
 # --- CLEAN LEFTOVER FILES OUTSIDE HOME ---------------------------------------
 echo "🧹 Cleaning leftover files..."
@@ -80,3 +80,4 @@ fi
 echo "✅ User $USERNAME removed successfully." | tee -a "$LOGFILE"
 echo ""
 echo "✔️ Done."
+
