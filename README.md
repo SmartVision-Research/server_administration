@@ -26,29 +26,30 @@ sudo ./install.sh
 
 Below is the full workflow from creating users to deleting them.
 
-### 1️⃣ Create a New User
+### 1️⃣  Create a New User
 
-Script: add_newuser.sh
+**Script:** add_newuser.sh
 
-Description
+**Description**
 
 Creates a new Linux user, assigns it to the researcher and docker groups, and generates a random secure password.
 It also logs the credentials in user_passwords.log.
 
-Usage
-
+**Usage**
+```bash
 sudo ./add_newuser.sh <username>
-
-Example
+```
+**Example**
+```bash 
 sudo ./add_newuser.sh smartvision
-
-Output (example)
+```
+**Output** (example)
 📌 Creating user 'smartvision'
 🔑 Password: 8dF#Yw32A!
 📁 Home directory: /home/smartvision
 📝 Saved to: user_passwords.log
 
-### 2️⃣ Provide Temporary Access to an Existing User
+### 2️⃣  Provide Temporary Access to an Existing User
 
 **Script:** grant_access.sh
 
@@ -76,7 +77,7 @@ Logs backup entry
 
 Users will be forced to change password after it expires, and cannot open new sessions until they do.
 
-### 3️⃣ Extend Access for an Existing User
+### 3️⃣  Extend Access for an Existing User
 
 **Script:** extend_access.sh
 
@@ -90,7 +91,7 @@ The updated expiration information is backed up in: `user_passwords.log`.
 sudo ./extend_access.sh <username> <additional_days>
 ```
 
-### 3️⃣ Permanently Delete a User (DANGER ZONE)
+### 4️⃣  Permanently Delete a User (DANGER ZONE)
 
 **Script:** dangerzone/delete_user.sh
 
