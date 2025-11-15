@@ -35,16 +35,16 @@ PASSWORD=$(tr -dc 'A-Za-z0-9!@#$%&*_' </dev/urandom | head -c 12)
 echo "$USERNAME:$PASSWORD" | chpasswd
 
 # --- COMPUTE EXPIRATION DATE ---
+# --- SET PASSWORD EXPIRATION AND MIN AGE ---
+# -M : max days until password expires
+# -m : min days before user can change password (prevent user changes)
+# -E : account expiration date (block login after expiration)
 EXPIRATION_DATE=$(date -d "+$VALIDITY_DAYS days" +%Y-%m-%d)
-
-# --- APPLY PASSWORD EXPIRATION ---
-# -M : max days the password is valid
-# -E : account expiration date (optional but safer)
-# -W : warning days
-chage -M "$VALIDITY_DAYS" -E "$EXPIRATION_DATE" -W 7 "$USERNAME"
+chage -M "$VALIDITY_DAYS" -m "$VALIDITY_DAYS" -E "$EXPIRATION_DATE" "$USERNAME"
 
 # --- LOG PASSWORD CHANGE ---
-echo "$(date '+%Y-%m-%d %H:%M:%S') | $USERNAME | $PASSWORD | Expires on $EXPIRATION_DATE" >> "$BACKUP_FILE"
+echo "$(date '+%Y-%m-%d %H:%M:%S') | $USERNAME | $PASSWORD | Valid $VALIDITY_DAYS days | Expiration: $EXPIRATION_DATE" >> "$BACKUP_FILE"
+
 
 # --- OUTPUT ---
 echo "✅ Password for user '$USERNAME' updated."

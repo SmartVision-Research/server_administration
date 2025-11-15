@@ -35,6 +35,7 @@ if [[ -z "$SHADOW_ENTRY" ]]; then
   exit 1
 fi
 
+
 # Fields in /etc/shadow:
 # 1: username
 # 2: encrypted password
@@ -66,8 +67,12 @@ NEW_EXPIRATION=$(date -d "@$((NEW_EXPIRATION_DAYS * 86400))" +%Y-%m-%d)
 # --- APPLY NEW EXPIRATION ---
 chage -E "$NEW_EXPIRATION_DAYS" "$USERNAME"
 
-# --- LOG ---
-echo "$(date '+%Y-%m-%d %H:%M:%S') | $USERNAME | Extended by $EXTRA_DAYS days | New expiration: $NEW_EXPIRATION" >> "$LOG_FILE"
+# --- SET MIN/MAX PASSWORD AGE TO PREVENT CHANGES ---
+# Prevent user from changing password before expiration
+chage -m "$EXTRA_DAYS" -M "$EXTRA_DAYS" "$USERNAME"
+
+# --- LOG THE EXTENSION ---
+echo "$(date '+%Y-%m-%d %H:%M:%S') | $USERNAME | Extended by $EXTRA_DAYS days | New Expiration: $NEW_EXPIRATION" >> "$BACKUP_FILE"
 
 echo "✅ Access extended for '$USERNAME'"
 echo "📆 New expiration date: $NEW_EXPIRATION"
