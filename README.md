@@ -140,13 +140,12 @@ All these files are created automatically when first needed.
 
 ### 🧰 Recommended Workflow
 1. Create the user
-sudo ./add_newuser.sh newuser
+```bash sudo ./add_newuser.sh newuser```
 
 2. Grant access with time restriction
-sudo ./grant_access.sh newuser 7
+```bash sudo ./grant_access.sh newuser 7```
 
 3. Extend access if needed 
-sudo ./extend_access.sh newuser 3
+```bash sudo ./extend_access.sh newuser 3```
 
-3. When the project ends: delete user completely
-sudo ./dangerzone/delete_user.sh newuser
+3. When the project ends: delete user completely ```bash sudo ./dangerzone/delete_user.sh newuser```
