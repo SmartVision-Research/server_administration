@@ -40,7 +40,7 @@ Usage
 sudo ./add_newuser.sh <username>
 
 Example
-sudo ./add_newuser.sh deepvision
+sudo ./add_newuser.sh smartvision
 
 Output (example)
 📌 Creating user 'smartvision'
@@ -58,12 +58,15 @@ Assigns a new random password to an existing user and sets a password expiration
 The password and validity information are backed up in: user_passwords.log.
 
 **Usage**
-```bash sudo ./grant_access.sh <username> <validity_days> ```
+```bash
+ sudo ./grant_access.sh <username> <validity_days>
+ ```
 
 Example
+```bash 
 sudo ./grant_access.sh smartvision 10
-
-Behavior
+```
+**Behavior**
 
 Generates a new password
 
@@ -89,7 +92,7 @@ sudo ./extend_access.sh <username> <additional_days>
 
 ### 3️⃣ Permanently Delete a User (DANGER ZONE)
 
-Script: dangerzone/delete_user.sh
+**Script:** dangerzone/delete_user.sh
 
 Description
 
@@ -103,49 +106,45 @@ Logging in user_removal.log
 
 Safety checks before execution
 
-Usage
+**Usage**
+```bash 
 sudo ./dangerzone/delete_user.sh <username>
-
-Example
-sudo ./dangerzone/delete_user.sh deepvision
-
+```
+**Example**
+```bash 
+sudo ./dangerzone/delete_user.sh smartvision
+```
 Safety Prompt
 
 Before deleting the user, the script displays:
 
 ⚠️ DANGER ZONE ⚠️
-This will permanently delete the user 'deepvision'
+This will permanently delete the user 'smartvision'
 Type EXACTLY 'DELETE' to continue:
 
 
 If you do not type DELETE, the operation is cancelled.
 
-🧷 Log Files
+### 🧷 Log Files
 
 Two log files are automatically maintained:
 
 File	Description
+new_users.log Stores generated passwords for new users
 user_passwords.log	Stores generated passwords and validity dates
-user_removal.log	Records deleted users with timestamp
+dangerzone/user_removal.log	Records deleted users with timestamp
 
-Both files are created automatically when first needed.
+All these files are created automatically when first needed.
 
-🔐 Security Notes
-
-Only root should run these scripts.
-
-Password backup files contain sensitive information → limit permissions (the scripts handle this automatically).
-
-These tools are intended for controlled internal environments, not public-facing services.
-
-Password expiration may block SSH login after expiry but does not kill active sessions.
-
-🧰 Recommended Workflow
+### 🧰 Recommended Workflow
 1. Create the user
 sudo ./add_newuser.sh newuser
 
-2. Provide access with time restriction
+2. Grant access with time restriction
 sudo ./grant_access.sh newuser 7
+
+3. Extend access if needed 
+sudo ./extend_access.sh newuser 3
 
 3. When the project ends: delete user completely
 sudo ./dangerzone/delete_user.sh newuser
