@@ -44,7 +44,7 @@ Script: add_newuser.sh
 Description
 
 Creates a new Linux user, assigns it to the researcher group, and generates a random secure password.
-It also logs the credentials in user_passwords.txt.
+It also logs the credentials in user_passwords.log.
 
 Usage
 
@@ -57,7 +57,7 @@ Output (example)
 📌 Creating user 'deepvision'
 🔑 Password: 8dF#Yw32A!
 📁 Home directory: /home/deepvision
-📝 Saved to: user_passwords.txt
+📝 Saved to: user_passwords.log
 
 2️⃣ Provide Temporary Access to an Existing User
 
@@ -66,7 +66,7 @@ Script: provide_access.sh
 Description
 
 Assigns a new random password to an existing user and sets a password expiration policy.
-The password and validity information are backed up in: user_passwords.txt.
+The password and validity information are backed up in: user_passwords.log.
 
 Usage
 sudo ./provide_access.sh <username> <validity_days>
@@ -122,7 +122,7 @@ If you do not type DELETE, the operation is cancelled.
 Two log files are automatically maintained:
 
 File	Description
-user_passwords.txt	Stores generated passwords and validity dates
+user_passwords.log	Stores generated passwords and validity dates
 user_removal.log	Records deleted users with timestamp
 
 Both files are created automatically when first needed.
