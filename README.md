@@ -50,15 +50,15 @@ Output (example)
 
 ### 2️⃣ Provide Temporary Access to an Existing User
 
-Script: grant_access.sh
+**Script:** grant_access.sh
 
-Description
+**Description**
 
 Assigns a new random password to an existing user and sets a password expiration policy.
 The password and validity information are backed up in: user_passwords.log.
 
-Usage
-sudo ./grant_access.sh <username> <validity_days>
+**Usage**
+```bash sudo ./grant_access.sh <username> <validity_days> ```
 
 Example
 sudo ./grant_access.sh smartvision 10
@@ -85,9 +85,9 @@ The updated expiration information is backed up in: `user_passwords.log`.
 **Usage**
 ```bash
 sudo ./extend_access.sh <username> <additional_days>
+```
 
-
-3️⃣ Permanently Delete a User (DANGER ZONE)
+### 3️⃣ Permanently Delete a User (DANGER ZONE)
 
 Script: dangerzone/delete_user.sh
 
