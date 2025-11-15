@@ -33,8 +33,21 @@ fi
 # --- GENERATE SECURE PASSWORD (NO OPENSSL!) ---
 PASSWORD=$(tr -dc 'A-Za-z0-9!@#$%^&*()-_=+?' </dev/urandom | head -c 12)
 
-# --- CREATE USER ---
-useradd -m -G researcher,docker "$USERNAME"
+# --- CREATE USER WITH BASH SHELL AND HOME ---
+useradd -m -s /bin/bash -G researcher,docker "$USERNAME"
+
+# --- COPY SKELETON FILES (if needed) ---
+cp -a /etc/skel/. "/home/$USERNAME/"
+chown -R "$USERNAME:$USERNAME" "/home/$USERNAME"
+
+# --- OPTIONAL: ensure bash-completion is loaded ---
+BASHRC_FILE="/home/$USERNAME/.bashrc"
+if ! grep -q "bash_completion" "$BASHRC_FILE"; then
+    echo 'if [ -f /etc/bash_completion ]; then . /etc/bash_completion; fi' >> "$BASHRC_FILE"
+fi
+
+
+
 
 # --- SET PASSWORD ---
 echo "${USERNAME}:${PASSWORD}" | chpasswd
