@@ -34,7 +34,7 @@ fi
 PASSWORD=$(tr -dc 'A-Za-z0-9!@#$%^&*()-_=+?' </dev/urandom | head -c 12)
 
 # --- CREATE USER ---
-useradd -m -G researcher "$USERNAME"
+useradd -m -G researcher,docker "$USERNAME"
 
 # --- SET PASSWORD ---
 echo "${USERNAME}:${PASSWORD}" | chpasswd
