@@ -19,6 +19,7 @@ Scripts included:
 Clone or copy the repository on your server, then run:
 
 ```bash
+chmod +x install.sh
 sudo ./install.sh
 ```
 
