@@ -32,7 +32,7 @@ echo "🔧 Setting executable permissions for admin scripts..."
 
 # --- PATHS TO SCRIPTS ---
 SCRIPT1="add_newuser.sh"
-SCRIPT2="provide_access.sh"
+SCRIPT2="grant_access.sh"
 SCRIPT3="dangerzone/delete_user.sh"
 SCRIPT4="extend_access.sh"
 

@@ -5,7 +5,7 @@ This repository contains a set of secure shell scripts for managing user account
 Scripts included:
 
 - **`add_newuser.sh`** — Create a new system user with a random strong password  
-- **`provide_access.sh`** — Generate a new temporary password with an expiration date  
+- **`grant_access.sh`** — Generate a new temporary password with an expiration date  
 - **`dangerzone/delete_user.sh`** — Permanently delete a user and their home directory  
 - **`install.sh`** — Configure permissions for all scripts
 
@@ -61,7 +61,7 @@ Output (example)
 
 2️⃣ Provide Temporary Access to an Existing User
 
-Script: provide_access.sh
+Script: grant_access.sh
 
 Description
 
@@ -69,10 +69,10 @@ Assigns a new random password to an existing user and sets a password expiration
 The password and validity information are backed up in: user_passwords.log.
 
 Usage
-sudo ./provide_access.sh <username> <validity_days>
+sudo ./grant_access.sh <username> <validity_days>
 
 Example
-sudo ./provide_access.sh deepvision 10
+sudo ./grant_access.sh deepvision 10
 
 Behavior
 
@@ -142,7 +142,7 @@ Password expiration may block SSH login after expiry but does not kill active se
 sudo ./add_newuser.sh newuser
 
 2. Provide access with time restriction
-sudo ./provide_access.sh newuser 7
+sudo ./grant_access.sh newuser 7
 
 3. When the project ends: delete user completely
 sudo ./dangerzone/delete_user.sh newuser
