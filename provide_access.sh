@@ -16,9 +16,9 @@ fi
 USERNAME="$1"
 VALIDITY_DAYS="$2"
 
-# --- SCRIPT DIRECTORY (for relative log file) ---
+# --- SCRIPT DIRECTORY ---
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-BACKUP_FILE="$SCRIPT_DIR/user_passwords.txt"
+BACKUP_FILE="$SCRIPT_DIR/user_passwords.log"
 
 touch "$BACKUP_FILE"
 
@@ -28,21 +28,26 @@ if ! id "$USERNAME" &>/dev/null; then
   exit 1
 fi
 
-# --- GENERATE RANDOM PASSWORD (NO OPENSSL) ---
+# --- GENERATE RANDOM PASSWORD ---
 PASSWORD=$(tr -dc 'A-Za-z0-9!@#$%&*_' </dev/urandom | head -c 12)
 
 # --- SET NEW PASSWORD ---
 echo "$USERNAME:$PASSWORD" | chpasswd
 
-# --- SET PASSWORD VALIDITY ---
-chage -M "$VALIDITY_DAYS" "$USERNAME"
+# --- COMPUTE EXPIRATION DATE ---
+EXPIRATION_DATE=$(date -d "+$VALIDITY_DAYS days" +%Y-%m-%d)
+
+# --- APPLY PASSWORD EXPIRATION ---
+# -M : max days the password is valid
+# -E : account expiration date (optional but safer)
+# -W : warning days
+chage -M "$VALIDITY_DAYS" -E "$EXPIRATION_DATE" -W 7 "$USERNAME"
 
 # --- LOG PASSWORD CHANGE ---
-echo "$(date '+%Y-%m-%d %H:%M:%S') | $USERNAME | $PASSWORD | Valid $VALIDITY_DAYS days" >> "$BACKUP_FILE"
+echo "$(date '+%Y-%m-%d %H:%M:%S') | $USERNAME | $PASSWORD | Expires on $EXPIRATION_DATE" >> "$BACKUP_FILE"
 
 # --- OUTPUT ---
 echo "✅ Password for user '$USERNAME' updated."
 echo "🔑 New password: $PASSWORD"
-echo "⏳ Validity: $VALIDITY_DAYS days"
+echo "⏳ Valid for $VALIDITY_DAYS days (until $EXPIRATION_DATE)"
 echo "📄 Saved in: $BACKUP_FILE"
-
